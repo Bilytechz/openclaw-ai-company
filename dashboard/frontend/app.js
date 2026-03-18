@@ -1,3 +1,9 @@
+const socket = io()
+
+socket.on("system_update", () => {
+    loadSystem()
+    loadResources()
+})
 async function loadSystem() {
 
     const response = await fetch("/system")

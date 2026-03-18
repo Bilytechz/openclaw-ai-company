@@ -1,3 +1,5 @@
+const http = require("http")
+const { Server } = require("socket.io")
 const si = require("systeminformation")
 const express = require("express")
 const path = require("path")
@@ -99,6 +101,16 @@ app.get("/resources", async (req, res) => {
   })
 
 })
-app.listen(PORT, () => {
+const server = http.createServer(app)
+const io = new Server(server)
+
+server.listen(PORT, () => {
   console.log("Dashboard running on http://localhost:" + PORT)
 })
+setInterval(() => {
+
+  io.emit("system_update", {
+    message: "system refresh"
+  })
+
+}, 3000)
