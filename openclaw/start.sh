@@ -17,5 +17,5 @@ cd ..
 echo "Starting agent runner..."
 
 node runtime/agent_runner.js &
-
+node runtime/spawn_manager.js &
 echo "System started successfully."
