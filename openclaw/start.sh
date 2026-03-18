@@ -14,4 +14,8 @@ cd dashboard
 npm start &
 cd ..
 
-echo "System started."
+echo "Starting agent runner..."
+
+node runtime/agent_runner.js &
+
+echo "System started successfully."
