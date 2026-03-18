@@ -1,0 +1,12 @@
+{
+  "name": "openclaw-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard for OpenClaw AI agents",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
