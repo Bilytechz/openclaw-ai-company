@@ -23,13 +23,13 @@ app.get("/system", (req, res) => {
 
   const system = {
     agents: [
-      "product_manager",
-      "planner",
-      "supervisor",
-      "memory",
-      "ui_designer",
-      "developer"
-    ],
+  { name: "product_manager", status: "online" },
+  { name: "planner", status: "working" },
+  { name: "supervisor", status: "online" },
+  { name: "memory", status: "idle" },
+  { name: "ui_designer", status: "idle" },
+  { name: "developer", status: "working" }
+],
     status: "running",
     tasks: taskCount,
     logs: logs
@@ -46,6 +46,45 @@ try {
 } catch (error) {
   taskCount = 0
 }
+app.use(express.json())
+
+app.post("/task", (req, res) => {
+
+  const taskText = req.body.task
+
+  if (!taskText) {
+    return res.json({ status: "error", message: "task missing" })
+  }
+
+  let data
+
+  try {
+    data = JSON.parse(fs.readFileSync("../tasks/tasks.json"))
+  } catch {
+    data = { tasks: [] }
+  }
+
+  const newTask = {
+    id: Date.now(),
+    task: taskText,
+    agent: "developer"
+  }
+
+  data.tasks.push(newTask)
+
+  fs.writeFileSync(
+    "../tasks/tasks.json",
+    JSON.stringify(data, null, 2)
+  )
+
+  fs.appendFileSync(
+    "../logs/system.log",
+    "Manual task created: " + taskText + "\n"
+  )
+
+  res.json({ status: "ok" })
+
+})
 app.listen(PORT, () => {
   console.log("Dashboard running on http://localhost:" + PORT)
 })

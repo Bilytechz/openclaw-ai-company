@@ -12,11 +12,13 @@ async function loadSystem() {
 
     data.agents.forEach(agent => {
 
-        const li = document.createElement("li")
-        li.textContent = agent
-        agentsList.appendChild(li)
+    const li = document.createElement("li")
 
-    })
+    li.textContent = agent.name + " — " + agent.status
+
+    agentsList.appendChild(li)
+
+})
 
     status.textContent = data.status
     tasks.textContent = data.tasks
@@ -27,3 +29,22 @@ async function loadSystem() {
 loadSystem()
 
 setInterval(loadSystem, 3000)
+async function createTask() {
+
+    const input = document.getElementById("taskInput")
+
+    const task = input.value
+
+    if (!task) return
+
+    await fetch("/task", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ task: task })
+    })
+
+    input.value = ""
+
+}
