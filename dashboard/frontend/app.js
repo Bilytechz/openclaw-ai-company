@@ -1,7 +1,6 @@
 async function loadSystem() {
 
     const response = await fetch("/system")
-
     const data = await response.json()
 
     const agentsList = document.getElementById("agents")
@@ -26,3 +25,5 @@ async function loadSystem() {
 }
 
 loadSystem()
+
+setInterval(loadSystem, 3000)
