@@ -1,6 +1,6 @@
-const fs = require("fs")
 const express = require("express")
 const path = require("path")
+const fs = require("fs")
 
 const app = express()
 const PORT = 3000
@@ -31,13 +31,21 @@ app.get("/system", (req, res) => {
       "developer"
     ],
     status: "running",
-    tasks: 0,
+    tasks: taskCount,
     logs: logs
   }
 
   res.json(system)
 
 })
+let taskCount = 0
+
+try {
+  const taskData = JSON.parse(fs.readFileSync("../tasks/tasks.json"))
+  taskCount = taskData.tasks.length
+} catch (error) {
+  taskCount = 0
+}
 app.listen(PORT, () => {
   console.log("Dashboard running on http://localhost:" + PORT)
 })
