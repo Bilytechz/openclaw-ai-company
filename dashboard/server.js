@@ -1,3 +1,4 @@
+const fs = require("fs")
 const express = require("express")
 const path = require("path")
 
@@ -12,6 +13,14 @@ app.get("/", (req, res) => {
 })
 app.get("/system", (req, res) => {
 
+  let logs = "no logs"
+
+  try {
+    logs = fs.readFileSync("../logs/system.log", "utf8")
+  } catch (error) {
+    logs = "log file not found"
+  }
+
   const system = {
     agents: [
       "product_manager",
@@ -21,12 +30,9 @@ app.get("/system", (req, res) => {
       "ui_designer",
       "developer"
     ],
-
     status: "running",
-
     tasks: 0,
-
-    logs: "system initialized"
+    logs: logs
   }
 
   res.json(system)
