@@ -27,8 +27,21 @@ async function loadSystem() {
 }
 
 loadSystem()
+async function loadResources() {
 
-setInterval(loadSystem, 3000)
+    const response = await fetch("/resources")
+    const data = await response.json()
+
+    document.getElementById("cpu").textContent = data.cpu
+    document.getElementById("ram").textContent = data.ram
+    document.getElementById("disk").textContent = data.disk
+
+}
+
+setInterval(() => {
+    loadSystem()
+    loadResources()
+}, 3000)
 async function createTask() {
 
     const input = document.getElementById("taskInput")

@@ -1,3 +1,4 @@
+const si = require("systeminformation")
 const express = require("express")
 const path = require("path")
 const fs = require("fs")
@@ -83,6 +84,19 @@ app.post("/task", (req, res) => {
   )
 
   res.json({ status: "ok" })
+
+})
+app.get("/resources", async (req, res) => {
+
+  const cpu = await si.currentLoad()
+  const mem = await si.mem()
+  const disk = await si.fsSize()
+
+  res.json({
+    cpu: cpu.currentLoad.toFixed(2),
+    ram: ((mem.active / mem.total) * 100).toFixed(2),
+    disk: disk[0].use
+  })
 
 })
 app.listen(PORT, () => {
