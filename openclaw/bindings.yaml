@@ -1,0 +1,25 @@
+agents:
+
+  product_manager:
+    model: openrouter/moonshotai/kimi-k2.5
+    system_prompt: core/product_manager.md
+
+  planner:
+    model: openrouter/z-ai/glm-5
+    system_prompt: core/planner.md
+
+  supervisor:
+    model: openrouter/z-ai/glm-5
+    system_prompt: core/supervisor.md
+
+  memory:
+    model: openrouter/z-ai/glm-5
+    system_prompt: core/memory.md
+
+  ui_designer:
+    model: openrouter/z-ai/glm-5
+    system_prompt: agents/ui_designer.md
+
+  developer:
+    model: openrouter/moonshotai/kimi-k2.5
+    system_prompt: agents/fullstack_developer.md
